@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/wangxinhao/CLionProjects/Programming_Practice/魔兽世界之三：开战.cpp
+iostream
+-
+algorithm
+-
+unordered_map
+-
+string
+-
+vector
+-
+iomanip
+-
+

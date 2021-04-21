@@ -6,13 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/wangxinhao/CLionProjects/Programming_Practice/temp.cpp
-stdio.h
--
-stdlib.h
--
-map
--
-algorithm
+/Users/wangxinhao/CLionProjects/Programming_Practice/踩方格.cpp
+iostream
 -
 

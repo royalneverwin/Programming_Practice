@@ -1,0 +1,1 @@
+/usr/bin/clang++ -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names "CMakeFiles/add57.dir/你真的搞清楚为啥while(cin>>n)能成立了吗？.cpp.o" -o add57 

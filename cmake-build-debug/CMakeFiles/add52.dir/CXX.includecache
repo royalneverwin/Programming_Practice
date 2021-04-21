@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/wangxinhao/CLionProjects/Programming_Practice/A_Star_not_a_Tree?.cpp
+iostream
+-
+cmath
+-
+array
+-
+random
+-
+cstdlib
+-
+iomanip
+-
+

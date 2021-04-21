@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/add31.dir/temp.cpp.o"
+  "CMakeFiles/add31.dir/踩方格.cpp.o"
   "add31"
   "add31.pdb"
 )
