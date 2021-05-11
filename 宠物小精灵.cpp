@@ -2,20 +2,20 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <queue>
 #include <unordered_map>
+#include <algorithm>
 #include <set>
 #include <vector>
 using namespace std;
 
-struct petInBag{
+struct petWithCnt{
     string name;
-    int cnt;
-    petInBag(const string& n):name(n){
-        cnt = 0;
-    }
+    int cnt;//用来判断在背包中存放时间长短
+    petWithCnt(const string& n, int _cnt):name(n), cnt(_cnt){}
 };
 
-bool operator < (const petInBag& p1, const petInBag& p2){
+bool operator < (const petWithCnt& p1, const petWithCnt& p2){
     return p1.cnt > p2.cnt;
 }
 
@@ -26,49 +26,42 @@ int main(){
         int n;
         cin >> n;
         string op, people, pet;
-        vector<petInBag> bag;
-        unordered_map<string, int> com;
-        for(int j = 0; j < n; j++){
+        map<string, priority_queue<petWithCnt>> allBag;
+        map<string, vector<string>> allCom;
+        for(int j = 1; j <= n; j++){
             cin >> op >> people >> pet;
+            if(allBag.count(people) == 0){
+                priority_queue<petWithCnt> newBag;
+                allBag.insert(pair<string, priority_queue<petWithCnt>> (people, newBag));
+            }
+            if(allCom.count(people) == 0){
+                vector<string> newCom;
+                allCom.insert(pair<string, vector<string>> (people, newCom));
+            }
             if(op == "C"){//抓精灵
-                if(bag.size() < 6){
-                    for(auto & tmp : bag){//用来判断抓住时间
-                        tmp.cnt++;
-                    }
-                    bag.push_back(petInBag(pet));
+                if(allBag[people].size() < 6){
+                    allBag[people].push(petWithCnt(pet, j));//cnt = j
                 } else{
-                    sort(bag.begin(), bag.end());
-                    string tmpPet = (bag.begin())->name;
-                    bag.erase(bag.begin());
-                    com.insert(pair<string, int>(tmpPet, 1));
-                    bag.push_back(petInBag(pet));
+                    string pet2com = (allBag[people].top()).name;
+                    allBag[people].pop();
+                    allCom[people].push_back(pet2com);
+                    allBag[people].push(petWithCnt(pet, j));
                 }
             } else{//取精灵
-                if(people != "satoshi"){//识别假的
+                auto p = find(allCom[people].begin(), allCom[people].end(), pet);
+                if(p == allCom[people].end()){
                     cout << "Failed" << endl;
                 } else{
-                    if(com.count(pet) == 0){
-                        cout << "Failed" << endl;
-                    } else{
-                        sort(bag.begin(), bag.end());
-                        string tmpPet = (bag.begin())->name;
-                        bag.erase(bag.begin());
-                        com.insert(pair<string, int>(tmpPet, 1));
-                        com.erase(pet);
-                        bag.push_back(petInBag(pet));
-                        cout << "Success" << endl;
-                    }
+                    string pet2com = (allBag[people].top()).name;
+                    allBag[people].pop();
+                    allBag[people].push(petWithCnt(pet, j));
+                    allCom[people].erase(p);
+                    allCom[people].push_back(pet2com);
+                    cout << "Success" << endl;
                 }
+
             }
         }
-        for(auto &tmp: bag){
-            cout << tmp.name << endl;
-        }
-        cout << endl;
-        for(auto &tmp:com){
-            cout << tmp.first << endl;
-        }
-        cout << endl;
     }
     return 0;
 }
